@@ -1,0 +1,11 @@
+{
+  "name": "canvi-mcp",
+  "version": "1.0.0",
+  "description": "Canvi: a design editor (posters, infographics, social posts, slides) that Claude can drive through MCP. Zero dependencies.",
+  "type": "module",
+  "bin": { "canvi-mcp": "server.mjs" },
+  "files": ["server.mjs", "editor/", "commands/", ".claude-plugin/", ".mcp.json", "README.md", "LICENSE"],
+  "engines": { "node": ">=22" },
+  "license": "MIT",
+  "keywords": ["mcp", "design", "canvas", "claude", "infographic"]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "canvi",
+  "version": "1.0.0",
+  "description": "Canvi: design editor that Claude can drive. Create, edit and export posters, infographics, social posts, slides and A4 documents, then open them in a visual editor to touch up by hand.",
+  "license": "MIT",
+  "keywords": ["design", "canvas", "infographic", "poster", "mcp"]
+}

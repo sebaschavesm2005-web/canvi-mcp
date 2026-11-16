@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Canvi</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@400;600;700&family=Lato:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&family=Raleway:wght@400;600;700&family=Nunito:wght@400;700;800&family=Oswald:wght@400;600;700&family=League+Spartan:wght@400;700;800&family=Work+Sans:wght@400;600;700&family=DM+Sans:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Josefin+Sans:wght@400;600;700&family=Quicksand:wght@400;600;700&family=Bebas+Neue&family=Anton&family=Archivo+Black&family=Barlow:wght@400;600;700&family=Alata&family=Space+Grotesk:wght@400;500;700&family=Playfair+Display:wght@400;700;800&family=Lora:wght@400;700&family=Merriweather:wght@400;700&family=DM+Serif+Display&family=Cormorant+Garamond:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=Abril+Fatface&family=Yeseva+One&family=Pacifico&family=Dancing+Script:wght@400;700&family=Lobster&family=Great+Vibes&family=Caveat:wght@400;700&family=Sacramento&family=Shadows+Into+Light&family=Permanent+Marker&family=Amatic+SC:wght@400;700&family=Righteous&family=Bungee&family=Space+Mono:wght@400;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@400;600;700&family=Lato:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&family=Raleway:wght@400;600;700&family=Nunito:wght@400;700;800&family=Oswald:wght@400;600;700&family=League+Spartan:wght@400;700;800&family=Work+Sans:wght@400;600;700&family=DM+Sans:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Josefin+Sans:wght@400;600;700&family=Quicksand:wght@400;600;700&family=Bebas+Neue&family=Anton&family=Archivo+Black&family=Barlow:wght@400;600;700&family=Alata&family=Space+Grotesk:wght@400;500;700&family=Playfair+Display:wght@400;700;800&family=Lora:wght@400;700&family=Merriweather:wght@400;700&family=DM+Serif+Display&family=Cormorant+Garamond:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=Abril+Fatface&family=Yeseva+One&family=Pacifico&family=Dancing+Script:wght@400;700&family=Lobster&family=Great+Vibes&family=Caveat:wght@400;700&family=Sacramento&family=Shadows+Into+Light&family=Permanent+Marker&family=Amatic+SC:wght@400;700&family=Righteous&family=Bungee&family=Space+Mono:wght@400;700&family=DM+Mono:wght@400;500&family=Source+Serif+4:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;600;700&family=Newsreader:wght@400;600;700&display=swap">
 <style>
 /* Lienzo 2: editor de diseño. Barra superior y barra contextual claras, carril de pestañas a la izquierda,
    panel deslizante, mesa de trabajo gris y páginas apiladas. Un acento azul violeta para selección y acciones. */
@@ -336,6 +336,7 @@ canvas.cv{display:block;touch-action:none;cursor:default}
   <div class="main">
     <nav class="rail" id="rail" aria-label="Herramientas">
       <button data-tab="tpl"><span class="ic"></span>Plantillas</button>
+      <button data-tab="visuals"><span class="ic"></span>Visuales</button>
       <button data-tab="elements"><span class="ic"></span>Elementos</button>
       <button data-tab="text"><span class="ic"></span>Texto</button>
       <button data-tab="upload"><span class="ic"></span>Subir</button>
@@ -421,6 +422,7 @@ const ICONS = {
   zoomout: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5M8 11h6"/>',
   open: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
   save: '<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/>',
+  visuals: '<circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="5.5" r="2.5"/><circle cx="19" cy="18.5" r="2.5"/><path d="M7.5 12h4.5l4.8-5M12 12l4.8 5"/>',
   tpl: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10h18M10 10v11"/>',
   elements: '<circle cx="8" cy="8" r="4.5"/><rect x="12.5" y="12.5" width="8.5" height="8.5" rx="1"/><path d="M14 3l4 7h-8z"/><path d="M3 21l4-7 4 7z"/>',
   text: '<path d="M5 6V4h14v2M12 4v16M9 20h6"/>',
@@ -494,8 +496,8 @@ const DEFAULTS = {
   image: { src: '', frame: 'rect', radius: 0, flipH: false, flipV: false, crop: { scale: 1, ox: 0, oy: 0 }, adj: { brightness: 0, contrast: 0, saturation: 0, tint: 0, temp: 0, blur: 0, vignette: 0, sepia: 0, gray: 0 }, filter: 'original', stroke: '', strokeW: 0 },
   graphic: { path: '', vb: 24, fill: '#5b4de8', flipH: false, flipV: false },
   draw: { points: [], color: '#1b1d2a', size: 6, tool: 'pen' },
-  table: { rows: 3, cols: 3, cells: [], headFill: '#5b4de8', headColor: '#ffffff', cellFill: '#ffffff', altFill: '#f3f4f9', lineColor: '#dadce6', font: 'Inter', size: 16, color: '#1b1d2a' },
-  chart: { kind: 'column', data: [{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }, { label: 'D', value: 80 }], colors: ['#5b4de8', '#2bb3c0', '#f2b134', '#ef6b6b', '#1f9d6a'], font: 'Inter', size: 14, color: '#1b1d2a', showValues: true, title: '' },
+  table: { rows: 3, cols: 3, cells: [], headFill: '#5b4de8', headColor: '#ffffff', cellFill: '#ffffff', altFill: '#f3f4f9', lineColor: '#dadce6', font: 'Inter', size: 16, color: '#1b1d2a', style: 'grid', colW: [], align: [], hairlines: true },
+  chart: { kind: 'column', data: [{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }, { label: 'D', value: 80 }], colors: ['#5b4de8', '#2bb3c0', '#f2b134', '#ef6b6b', '#1f9d6a'], font: 'Inter', size: 14, color: '#1b1d2a', showValues: true, title: '', locale: 'es', unit: '', decimals: null, highlight: null, centerText: '', centerSub: '', muted: '' },
 };
 function mk(type, props) {
   const base = { id: uid(), type, x: 0, y: 0, w: 200, h: 100, rot: 0, opacity: 1, locked: false, hidden: false, gid: '' };
@@ -519,9 +521,10 @@ const selEl = () => (sel.length === 1 ? byId(sel[0]) : null);
 
 /* ---------- Fuentes ---------- */
 const FONTS = ['Montserrat', 'Poppins', 'Lato', 'Open Sans', 'Roboto', 'Raleway', 'Nunito', 'Oswald', 'League Spartan', 'Work Sans', 'DM Sans', 'Inter', 'Josefin Sans', 'Quicksand', 'Bebas Neue', 'Anton', 'Archivo Black', 'Barlow', 'Alata', 'Space Grotesk',
-  'Playfair Display', 'Lora', 'Merriweather', 'DM Serif Display', 'Cormorant Garamond', 'Libre Baskerville', 'Abril Fatface', 'Yeseva One',
+  'Playfair Display', 'Lora', 'Merriweather', 'DM Serif Display', 'Cormorant Garamond', 'Libre Baskerville', 'Abril Fatface', 'Yeseva One', 'Source Serif 4', 'IBM Plex Serif', 'Newsreader',
+  'Source Sans 3', 'IBM Plex Sans',
   'Pacifico', 'Dancing Script', 'Lobster', 'Great Vibes', 'Caveat', 'Sacramento', 'Shadows Into Light', 'Permanent Marker', 'Amatic SC', 'Righteous', 'Bungee', 'Space Mono', 'DM Mono'];
-const FONT_KIND = f => ['Playfair Display', 'Lora', 'Merriweather', 'DM Serif Display', 'Cormorant Garamond', 'Libre Baskerville', 'Abril Fatface', 'Yeseva One'].includes(f) ? 'Serif'
+const FONT_KIND = f => ['Source Serif 4', 'IBM Plex Serif', 'Newsreader', 'Playfair Display', 'Lora', 'Merriweather', 'DM Serif Display', 'Cormorant Garamond', 'Libre Baskerville', 'Abril Fatface', 'Yeseva One'].includes(f) ? 'Serif'
   : ['Pacifico', 'Dancing Script', 'Lobster', 'Great Vibes', 'Caveat', 'Sacramento', 'Shadows Into Light', 'Permanent Marker', 'Amatic SC'].includes(f) ? 'Manuscrita'
   : ['Space Mono', 'DM Mono'].includes(f) ? 'Mono' : ['Bebas Neue', 'Anton', 'Archivo Black', 'Righteous', 'Bungee', 'Oswald', 'League Spartan'].includes(f) ? 'Display' : 'Sans';
 const fontsReady = new Set();
@@ -922,48 +925,112 @@ function drawFree(ctx, el) {
   for (let i = 1; i < p.length - 1; i++) { const mx = (p[i][0] + p[i + 1][0]) / 2, my = (p[i][1] + p[i + 1][1]) / 2; ctx.quadraticCurveTo(p[i][0], p[i][1], mx, my); }
   ctx.lineTo(p[p.length - 1][0], p[p.length - 1][1]); ctx.stroke(); ctx.restore();
 }
+/* ---------- Tablas ---------- */
+function wrapPlain(txt, maxW) {
+  const out = [];
+  String(txt).split('\n').forEach(par => {
+    let line = '';
+    par.split(' ').forEach(w => { const t = line ? line + ' ' + w : w; if (!line || measureCtx.measureText(t).width <= maxW) line = t; else { out.push(line); line = w; } });
+    out.push(line);
+  });
+  return out;
+}
+const isNumLike = s => /^[\s+\-−~≈<>≥≤]*[\d][\d.,\s]*\s*(%|[A-Za-zµ°/·²³]{0,6})?\s*$/.test(String(s).trim());
+function tableLayout(el) {
+  const R = el.rows, C = el.cols, px = el.padX != null ? el.padX : el.size * .6, py = el.padY != null ? el.padY : el.size * .45, lh = el.size * 1.3;
+  const cell = (r, c) => String((el.cells[r] && el.cells[r][c]) || '');
+  const fnt = r => { const w = r === 0 ? 700 : 400; ensureFont(el.font, w); return `${w} ${el.size}px "${el.font}", Inter, sans-serif`; };
+  const want = new Array(C).fill(px * 2), min = new Array(C).fill(px * 2 + el.size);
+  for (let r = 0; r < R; r++) {
+    measureCtx.font = fnt(r);
+    for (let c = 0; c < C; c++) {
+      const t = cell(r, c), widest = Math.max(0, ...t.split('\n').map(s => measureCtx.measureText(s).width));
+      want[c] = Math.max(want[c], widest + px * 2);
+      min[c] = Math.max(min[c], Math.max(0, ...t.split(/\s+/).map(w => measureCtx.measureText(w).width)) + px * 2);
+    }
+  }
+  let cw;
+  if (el.colW && el.colW.length === C && el.colW.every(v => +v > 0)) { const s = el.colW.reduce((a, b) => a + +b, 0); cw = el.colW.map(v => +v / s * el.w); }
+  else {
+    const sw = want.reduce((a, b) => a + b, 0), smin = min.reduce((a, b) => a + b, 0);
+    if (sw <= el.w) cw = want.map(v => v / sw * el.w);
+    else if (smin >= el.w) cw = min.map(v => v / smin * el.w);
+    else { const extra = el.w - smin, need = want.map((v, i) => Math.max(0, v - min[i])), sn = need.reduce((a, b) => a + b, 0) || 1; cw = min.map((v, i) => v + extra * need[i] / sn); }
+  }
+  const rh = [];
+  for (let r = 0; r < R; r++) { measureCtx.font = fnt(r); let n = 1; for (let c = 0; c < C; c++) n = Math.max(n, wrapPlain(cell(r, c), cw[c] - px * 2).length); rh.push(n * lh + py * 2); }
+  let tot = rh.reduce((a, b) => a + b, 0);
+  if (tot < el.h) { const k = el.h / tot; for (let i = 0; i < R; i++) rh[i] *= k; tot = el.h; }
+  return { cw, rh, px, py, lh, h: tot, cell, fnt };
+}
 function drawTable(ctx, el) {
-  const cw = el.w / el.cols, rh = el.h / el.rows;
-  for (let r = 0; r < el.rows; r++) for (let c = 0; c < el.cols; c++) {
-    ctx.fillStyle = r === 0 ? el.headFill : (r % 2 ? el.altFill : el.cellFill); ctx.fillRect(c * cw, r * rh, cw, rh);
-    const txt = (el.cells[r] && el.cells[r][c]) || '';
-    ctx.font = `${r === 0 ? 700 : 400} ${el.size}px "${el.font}", Inter, sans-serif`; ensureFont(el.font, r === 0 ? 700 : 400); ctx.fillStyle = r === 0 ? el.headColor : el.color; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
-    ctx.save(); ctx.beginPath(); ctx.rect(c * cw, r * rh, cw, rh); ctx.clip(); ctx.fillText(txt, c * cw + el.size * .6, r * rh + rh / 2); ctx.restore();
+  const L = tableLayout(el); if (L.h > el.h + .5) el.h = L.h;
+  const style = el.style || 'grid', book = style === 'booktabs';
+  const colAlign = c => { const a = el.align && el.align[c]; if (a) return a; let any = false, all = true; for (let r = 1; r < el.rows; r++) { const t = L.cell(r, c); if (!t.trim()) continue; any = true; if (!isNumLike(t)) all = false; } return any && all ? 'right' : 'left'; };
+  let y = 0;
+  for (let r = 0; r < el.rows; r++) {
+    let x = 0;
+    for (let c = 0; c < el.cols; c++) {
+      const w = L.cw[c], h = L.rh[r];
+      if (!book) { ctx.fillStyle = r === 0 ? el.headFill : (r % 2 ? el.altFill : el.cellFill); ctx.fillRect(x, y, w, h); }
+      ctx.font = L.fnt(r); ctx.fillStyle = r === 0 && !book ? el.headColor : el.color; ctx.textBaseline = 'middle';
+      const al = colAlign(c); ctx.textAlign = al; const tx = al === 'right' ? x + w - L.px : al === 'center' ? x + w / 2 : x + L.px;
+      const lines = wrapPlain(L.cell(r, c), w - L.px * 2), top = y + (h - lines.length * L.lh) / 2;
+      lines.forEach((ln, i) => ctx.fillText(ln, tx, top + i * L.lh + L.lh / 2));
+      x += w;
+    }
+    y += L.rh[r];
   }
   ctx.strokeStyle = el.lineColor; ctx.lineWidth = 1; ctx.beginPath();
-  for (let r = 0; r <= el.rows; r++) { ctx.moveTo(0, r * rh); ctx.lineTo(el.w, r * rh); } for (let c = 0; c <= el.cols; c++) { ctx.moveTo(c * cw, 0); ctx.lineTo(c * cw, el.h); } ctx.stroke();
+  if (style === 'grid') { let yy = 0; for (let r = 0; r <= el.rows; r++) { ctx.moveTo(0, yy); ctx.lineTo(el.w, yy); yy += L.rh[r] || 0; } let xx = 0; for (let c = 0; c <= el.cols; c++) { ctx.moveTo(xx, 0); ctx.lineTo(xx, L.h); xx += L.cw[c] || 0; } ctx.stroke(); }
+  else {
+    let yy = 0; for (let r = 1; r < el.rows; r++) { yy += L.rh[r - 1]; if (book && r > 1 && el.hairlines === false) continue; ctx.moveTo(0, yy); ctx.lineTo(el.w, yy); } ctx.stroke();
+    if (book) { ctx.strokeStyle = el.color; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, 1); ctx.lineTo(el.w, 1); ctx.moveTo(0, L.h - 1); ctx.lineTo(el.w, L.h - 1); ctx.stroke(); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(0, L.rh[0]); ctx.lineTo(el.w, L.rh[0]); ctx.stroke(); }
+  }
 }
+
+/* ---------- Gráficos ---------- */
+function fmtNum(v, el) {
+  v = +v; const dec = el.decimals == null ? (Number.isInteger(v) ? 0 : 2) : el.decimals;
+  try { return new Intl.NumberFormat(el.locale || 'es', { maximumFractionDigits: dec, minimumFractionDigits: el.decimals == null ? 0 : dec }).format(v) + (el.unit || ''); } catch (e) { return String(v) + (el.unit || ''); }
+}
+function niceMax(m) { if (m <= 0) return 1; const mag = Math.pow(10, Math.floor(Math.log10(m))), n = m / mag; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * mag; }
 function drawChart(ctx, el) {
   const d = el.data.filter(x => x && isFinite(+x.value)), n = d.length; if (!n) return;
   const f = `${el.size}px "${el.font}", Inter, sans-serif`; ensureFont(el.font, 400); ctx.font = f; ctx.fillStyle = el.color; ctx.textBaseline = 'middle';
+  const soft = rgba(el.color, .62);
   let top = 0; if (el.title) { ctx.font = `700 ${el.size * 1.2}px "${el.font}", Inter, sans-serif`; ctx.textAlign = 'left'; ctx.fillText(el.title, 0, el.size); top = el.size * 2.2; ctx.font = f; }
   const col = i => el.colors[i % el.colors.length], max = Math.max(...d.map(x => +x.value), 0) || 1;
+  const hi = el.highlight, hasHi = hi != null && hi !== '', isHi = i => typeof hi === 'number' ? hi === i : String(d[i].label) === String(hi);
+  const mark = i => !hasHi ? col(i) : (isHi(i) ? col(0) : (el.muted || rgba(el.color, .2)));
   const W = el.w, H = el.h - top, pad = el.size * 1.8;
   if (el.kind === 'pie' || el.kind === 'donut') {
-    const total = d.reduce((a, x) => a + +x.value, 0) || 1, R = Math.min(W * .55, H) / 2 - 4, cx = R + 4, cy = top + H / 2; let a0 = -Math.PI / 2;
-    d.forEach((x, i) => { const a1 = a0 + +x.value / total * Math.PI * 2; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, R, a0, a1); ctx.closePath(); ctx.fillStyle = col(i); ctx.fill(); a0 = a1; });
-    if (el.kind === 'donut') { ctx.save(); ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(cx, cy, R * .55, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
-    ctx.textAlign = 'left'; d.forEach((x, i) => { const y = top + H / 2 - (n - 1) * el.size * .9 + i * el.size * 1.8; ctx.fillStyle = col(i); ctx.fillRect(cx + R + el.size, y - el.size * .4, el.size * .8, el.size * .8); ctx.fillStyle = el.color; ctx.fillText(`${x.label}${el.showValues ? ' · ' + Math.round(+x.value / total * 100) + ' %' : ''}`, cx + R + el.size * 2.2, y); });
+    const total = d.reduce((a, x) => a + +x.value, 0) || 1, R = Math.min(W * .55, H) / 2 - 4, cx = R + 4, cy = top + H / 2, gap = n > 1 ? .014 : 0; let a0 = -Math.PI / 2;
+    d.forEach((x, i) => { const a1 = a0 + +x.value / total * Math.PI * 2; ctx.beginPath(); if (el.kind === 'donut') { ctx.arc(cx, cy, R, a0 + gap, a1 - gap); ctx.arc(cx, cy, R * .6, a1 - gap, a0 + gap, true); } else { ctx.moveTo(cx, cy); ctx.arc(cx, cy, R, a0 + gap, a1 - gap); } ctx.closePath(); ctx.fillStyle = mark(i); ctx.fill(); a0 = a1; });
+    if (el.kind === 'donut' && el.centerText) { ctx.fillStyle = el.color; ctx.textAlign = 'center'; ctx.font = `700 ${R * .36}px "${el.font}", Inter, sans-serif`; ctx.fillText(el.centerText, cx, cy - (el.centerSub ? R * .1 : 0)); if (el.centerSub) { ctx.font = `${el.size * .9}px "${el.font}", Inter, sans-serif`; ctx.fillStyle = soft; ctx.fillText(el.centerSub, cx, cy + R * .24); } ctx.font = f; }
+    ctx.textAlign = 'left'; d.forEach((x, i) => { const y = top + H / 2 - (n - 1) * el.size * .9 + i * el.size * 1.8; ctx.fillStyle = mark(i); ctx.fillRect(cx + R + el.size, y - el.size * .4, el.size * .8, el.size * .8); ctx.fillStyle = el.color; ctx.fillText(`${x.label}${el.showValues ? '  ' + fmtNum(+x.value / total * 100, { decimals: 0, locale: el.locale, unit: ' %' }) : ''}`, cx + R + el.size * 2.2, y); });
     return;
   }
   if (el.kind === 'bar') {
-    const lw = Math.max(...d.map(x => ctx.measureText(String(x.label)).width)) + el.size, bh = (H - pad) / n;
-    d.forEach((x, i) => { const y = top + i * bh + bh * .15, h = bh * .7, w = (W - lw - pad) * (+x.value / max); ctx.fillStyle = col(i); roundRectPath(ctx, lw, y, w, h, Math.min(6, h / 2)); ctx.fill(); ctx.fillStyle = el.color; ctx.textAlign = 'right'; ctx.fillText(x.label, lw - el.size * .5, y + h / 2); if (el.showValues) { ctx.textAlign = 'left'; ctx.fillText(String(x.value), lw + w + el.size * .4, y + h / 2); } });
+    const lw = Math.max(...d.map(x => ctx.measureText(String(x.label)).width)) + el.size, bh = (H - pad) / n, vw = el.showValues ? Math.max(...d.map(x => ctx.measureText(fmtNum(x.value, el)).width)) + el.size * .6 : 0;
+    d.forEach((x, i) => { const y = top + i * bh + bh * .15, h = bh * .7, w = Math.max(2, (W - lw - vw - 4) * (+x.value / max)); ctx.fillStyle = mark(i); roundRectPath(ctx, lw, y, w, h, Math.min(5, h / 2)); ctx.fill(); ctx.fillStyle = el.color; ctx.textAlign = 'right'; ctx.fillText(x.label, lw - el.size * .5, y + h / 2); if (el.showValues) { ctx.textAlign = 'left'; ctx.font = `${hasHi && isHi(i) ? 700 : 400} ${el.size}px "${el.font}", Inter, sans-serif`; ctx.fillText(fmtNum(x.value, el), lw + w + el.size * .4, y + h / 2); ctx.font = f; } });
     return;
   }
-  // columnas y líneas comparten ejes
-  const x0 = el.size * 2.4, y0 = top + H - pad, ph = y0 - top - el.size * 1.2, pw = W - x0;
-  ctx.strokeStyle = rgba(el.color, .2); ctx.lineWidth = 1; ctx.textAlign = 'right';
-  for (let g = 0; g <= 4; g++) { const y = y0 - ph * g / 4; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(W, y); ctx.stroke(); ctx.fillStyle = el.color; ctx.fillText(String(Math.round(max * g / 4 * 10) / 10), x0 - el.size * .4, y); }
+  // columnas, líneas y áreas comparten ejes
+  const nm = niceMax(max), x0 = el.size * 2.6, y0 = top + H - pad, ph = y0 - top - el.size * 1.2, pw = W - x0;
+  ctx.strokeStyle = rgba(el.color, .13); ctx.lineWidth = 1; ctx.textAlign = 'right';
+  for (let g = 0; g <= 4; g++) { const y = y0 - ph * g / 4; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(W, y); ctx.stroke(); ctx.fillStyle = soft; ctx.fillText(fmtNum(nm * g / 4, { locale: el.locale, decimals: el.decimals }), x0 - el.size * .4, y); }
   const step = pw / n;
   if (el.kind === 'column') {
-    d.forEach((x, i) => { const h = ph * (+x.value / max), bx = x0 + i * step + step * .2, bw = step * .6; ctx.fillStyle = col(i); roundRectPath(ctx, bx, y0 - h, bw, h, Math.min(6, bw / 2)); ctx.fill(); ctx.fillStyle = el.color; ctx.textAlign = 'center'; ctx.fillText(x.label, bx + bw / 2, y0 + el.size); if (el.showValues) ctx.fillText(String(x.value), bx + bw / 2, y0 - h - el.size * .7); });
+    d.forEach((x, i) => { const h = ph * (+x.value / nm), bx = x0 + i * step + step * .2, bw = step * .6; ctx.fillStyle = mark(i); roundRectPath(ctx, bx, y0 - h, bw, h, Math.min(5, bw / 2)); ctx.fill(); ctx.fillStyle = el.color; ctx.textAlign = 'center'; ctx.fillText(x.label, bx + bw / 2, y0 + el.size); if (el.showValues) { ctx.font = `${hasHi && isHi(i) ? 700 : 400} ${el.size}px "${el.font}", Inter, sans-serif`; ctx.fillText(fmtNum(x.value, el), bx + bw / 2, y0 - h - el.size * .7); ctx.font = f; } });
   } else {
-    ctx.strokeStyle = col(0); ctx.lineWidth = Math.max(2, el.size * .2); ctx.lineJoin = 'round'; ctx.beginPath();
-    d.forEach((x, i) => { const px = x0 + i * step + step / 2, py = y0 - ph * (+x.value / max); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.stroke();
-    d.forEach((x, i) => { const px = x0 + i * step + step / 2, py = y0 - ph * (+x.value / max); ctx.fillStyle = col(0); ctx.beginPath(); ctx.arc(px, py, Math.max(3, el.size * .3), 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = el.color; ctx.textAlign = 'center'; ctx.fillText(x.label, px, y0 + el.size); if (el.showValues) ctx.fillText(String(x.value), px, py - el.size * .9); });
+    const pts = d.map((x, i) => [x0 + i * step + step / 2, y0 - ph * (+x.value / nm)]);
+    if (el.kind === 'area') { ctx.beginPath(); ctx.moveTo(pts[0][0], y0); pts.forEach(p => ctx.lineTo(p[0], p[1])); ctx.lineTo(pts[n - 1][0], y0); ctx.closePath(); ctx.fillStyle = rgba(col(0), .16); ctx.fill(); }
+    ctx.strokeStyle = col(0); ctx.lineWidth = Math.max(2, el.size * .2); ctx.lineJoin = 'round'; ctx.beginPath(); pts.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); ctx.stroke();
+    d.forEach((x, i) => { const [px, py] = pts[i], on = !hasHi || isHi(i); ctx.fillStyle = col(0); ctx.beginPath(); ctx.arc(px, py, Math.max(3, el.size * (on && hasHi ? .42 : .3)), 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = el.color; ctx.textAlign = 'center'; ctx.fillText(x.label, px, y0 + el.size); if (el.showValues && (!hasHi || on)) ctx.fillText(fmtNum(x.value, el), px, py - el.size * .9); });
   }
 }
+
 function drawShape(ctx, el) {
   ctx.save(); ctx.translate(el.w / 2, el.h / 2); ctx.scale(el.flipH ? -1 : 1, el.flipV ? -1 : 1); ctx.translate(-el.w / 2, -el.h / 2);
   shapePath(ctx, el.shape, el.w, el.h, el.radius);
@@ -1433,6 +1500,7 @@ window.addEventListener('keydown', e => {
 
 /* ================= Lienzo 2 · interfaz: paneles, barra contextual, popovers, páginas, exportar ================= */
 const rail = $('#rail'), panel = $('#panel'), panelBody = $('#panelBody'), panelTitle = $('#panelTitle'), ctxbar = $('#ctxbar'), popover = $('#popover');
+let vzText = ['Recoger: Se toma la muestra', 'Procesar: Se filtra y se amplifica la señal', 'Interpretar: Se compara con el umbral'].join('\n'), vzTheme = 'auto', vzOpts = null, vzReport = null;
 let tab = 'tpl', subPanel = null, tplCat = 'Todos', fontQuery = '', fontKind = 'Todas';
 rail.querySelectorAll('button').forEach(b => { b.querySelector('.ic').innerHTML = icon(b.dataset.tab); });
 $('#panelClose').innerHTML = icon('x'); $('#panelBack').innerHTML = icon('back');
@@ -1456,7 +1524,7 @@ $('#panelClose').onclick = () => { if (subPanel === 'crop') exitCrop(); panel.cl
 $('#panelBack').onclick = () => { if (subPanel === 'crop') exitCrop(); subPanel = null; renderPanel(); };
 stage.addEventListener('pointerdown', e => { if (e.target === stage || e.target === stageInner) { select([]); closeSheets(); closePopover(); } });
 
-const TITLES = { tpl: 'Plantillas', elements: 'Elementos', text: 'Texto', upload: 'Subir', draw: 'Dibujar', styles: 'Estilos', position: 'Posición', fonts: 'Fuente', fx: 'Efectos', adjust: 'Editar foto', crop: 'Recortar', shapeText: 'Texto de la forma', table: 'Editar tabla', chart: 'Datos del gráfico', resize: 'Cambiar tamaño', props: 'Ajustes', spacing: 'Espaciado', border: 'Borde' };
+const TITLES = { tpl: 'Plantillas', visuals: 'Visuales', elements: 'Elementos', text: 'Texto', upload: 'Subir', draw: 'Dibujar', styles: 'Estilos', position: 'Posición', fonts: 'Fuente', fx: 'Efectos', adjust: 'Editar foto', crop: 'Recortar', shapeText: 'Texto de la forma', table: 'Editar tabla', chart: 'Datos del gráfico', resize: 'Cambiar tamaño', props: 'Ajustes', spacing: 'Espaciado', border: 'Borde' };
 function renderPanel() {
   const name = subPanel || tab; panelTitle.textContent = TITLES[name] || name; $('#panelBack').classList.toggle('hidden', !subPanel);
   const fn = PANELS[name]; panelBody.innerHTML = fn ? fn() : '<p class="hint">Nada que mostrar.</p>'; bindPanel(name);
@@ -1467,6 +1535,17 @@ const graphicSvg = g => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${
 
 const PANELS = {
   tpl() { return `<div class="chips">${TEMPLATE_CATS.map(c => `<button class="chip ${c === tplCat ? 'on' : ''}" data-cat="${c}">${c}</button>`).join('')}</div><div class="grid2" id="tplGrid"></div><p class="hint">Cargar una plantilla reemplaza el diseño actual; Ctrl+Z lo devuelve.</p>`; },
+  visuals() {
+    return `<p class="hint" style="margin-top:0">Escribe una idea por línea (título: detalle). Canvi propone distintas formas de dibujarlas; el resultado son formas y textos normales que puedes editar.</p>
+      <div class="ctl"><label for="vzText">Tus ideas</label><textarea id="vzText" rows="6" style="width:100%;font:13px/1.4 Inter,sans-serif">${esc(vzText)}</textarea></div>
+      <div class="ctl"><label for="vzTheme">Estilo</label><select id="vzTheme"><option value="auto" ${vzTheme === 'auto' ? 'selected' : ''}>Igual que el diseño</option>${Object.keys(VTHEMES).map(k => `<option value="${k}" ${vzTheme === k ? 'selected' : ''}>${VTHEMES[k].name}</option>`).join('')}</select></div>
+      <button class="btn primary" id="vzGo" style="width:100%;justify-content:center;height:38px;margin:8px 0">Ver opciones</button>
+      <div class="grid2" id="vzGrid"></div>
+      <h3 style="margin-top:18px">Revisar el diseño</h3>
+      <p class="hint" style="margin-top:0">Busca texto pequeño, exceso de palabras, páginas repetidas, contraste bajo, rellenos sin cambiar y huellas de diseño hecho por IA.</p>
+      <button class="btn" id="vzAudit" style="width:100%;justify-content:center">Revisar ahora</button>
+      <div id="vzReport"></div>`;
+  },
   elements() {
     return `<div class="search">${icon('elements')}<input id="elSearch" placeholder="Buscar formas, gráficos, marcos…" aria-label="Buscar elementos"></div>
       <h3>Formas</h3><div class="grid4">${SHAPES.map(s => `<button class="tile" data-shape="${s[0]}" title="${s[1]}">${shapeIcon(s[0])}<span>${s[1]}</span></button>`).join('')}</div>
@@ -1552,6 +1631,28 @@ function layerIcon(el) { return el.type === 'shape' ? (ICONS[el.shape] ? el.shap
 
 function bindPanel(name) {
   const B = panelBody;
+  if (name === 'visuals') {
+    const T = B.querySelector('#vzText'), TH = B.querySelector('#vzTheme'), G = B.querySelector('#vzGrid');
+    T.addEventListener('input', () => { vzText = T.value; }); TH.addEventListener('change', () => { vzTheme = TH.value; });
+    const spec = k => ({ kind: k, items: vzText.split('\n').map(x => x.trim()).filter(Boolean), theme: vzTheme });
+    const show = () => {
+      vzText = T.value; G.innerHTML = '';
+      const items = spec().items; if (items.length < 2) { G.innerHTML = '<p class="hint">Escribe al menos dos ideas.</p>'; return; }
+      vSuggest(items).forEach(k => {
+        try {
+          const r = buildVisual(spec(k)), pg = newPage(typeof page().bg === 'string' ? page().bg : '#ffffff'); pg.elements = r.elements;
+          const b = document.createElement('button'); b.className = 'tpl'; b.title = 'Insertar ' + VISUAL_KINDS[k].name;
+          const th = document.createElement('div'); th.className = 'thumb'; th.appendChild(thumbCanvas(pg, 130, 130, doc.w, doc.h)); b.appendChild(th);
+          b.insertAdjacentHTML('beforeend', `<span>${VISUAL_KINDS[k].name}<small>${VISUAL_KINDS[k].hint}</small></span>`);
+          b.onclick = () => { insertVisual(spec(k)); toast(VISUAL_KINDS[k].name + ' insertado. Está agrupado; desagrupa para editar cada parte.'); }; G.appendChild(b);
+        } catch (e) { /* esa forma no admite estas ideas */ }
+      });
+    };
+    B.querySelector('#vzGo').onclick = show; if (vzOpts) show();
+    const R = B.querySelector('#vzReport');
+    const paint = () => { if (!vzReport) return; const f = vzReport.findings; R.innerHTML = `<p class="hint"><b>${vzReport.score}/100</b> · ${vzReport.errors} errores · ${vzReport.warnings} avisos · ${vzReport.infos} sugerencias</p>` + f.map((x, i) => `<button class="tile wide" data-f="${i}" style="width:100%;text-align:left;margin:3px 0;padding:6px 8px;border-left:3px solid ${x.severity === 'error' ? '#d64545' : x.severity === 'warn' ? '#e0a526' : '#6b8bb5'};display:block"><small style="color:var(--muted)">Pág. ${x.page + 1}</small><br>${esc(x.message)}</button>`).join(''); R.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { const x = vzReport.findings[+b.dataset.f]; if (x.page !== pageIdx) gotoPage(x.page); if (x.id) select([x.id], { keepSub: true }); }); };
+    B.querySelector('#vzAudit').onclick = () => { vzReport = auditDesign(doc, { formal: true }); paint(); }; paint();
+  }
   if (name === 'tpl') { B.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { tplCat = b.dataset.cat; renderPanel(); }); renderTemplateGrid(B.querySelector('#tplGrid')); }
   if (name === 'elements') {
     B.querySelectorAll('[data-shape]').forEach(b => b.onclick = () => addShape(b.dataset.shape)); B.querySelectorAll('[data-line]').forEach(b => b.onclick = () => addLine(LINES[+b.dataset.line]));
@@ -1854,6 +1955,397 @@ document.addEventListener('paste', e => {
 const BGS = [['white', 'Mesa blanca'], ['grey', 'Mesa gris'], ['dots', 'Mesa con puntos']]; let stageBg = 'white'; try { stageBg = localStorage.getItem('canvi.bg') || 'white'; } catch (e) {}
 function applyStageBg() { stage.classList.remove('bg-white', 'bg-grey', 'bg-dots'); stage.classList.add('bg-' + stageBg); const b = $('#bgToggle'); if (b) b.title = BGS.find(x => x[0] === stageBg)[1]; }
 (function addBgToggle() { const ft = document.querySelector('.float-tools'); const b = document.createElement('button'); b.className = 'btn icon'; b.id = 'bgToggle'; b.innerHTML = icon('grid'); b.setAttribute('aria-label', 'Cambiar el fondo de la mesa'); b.onclick = () => { const i = BGS.findIndex(x => x[0] === stageBg); stageBg = BGS[(i + 1) % BGS.length][0]; try { localStorage.setItem('canvi.bg', stageBg); } catch (e) {} applyStageBg(); toast(BGS.find(x => x[0] === stageBg)[1]); }; const r = document.createElement('button'); r.className = 'btn icon'; r.id = 'rulerToggle'; r.innerHTML = icon('resize'); r.title = 'Reglas y guías (Mayús+R)'; r.setAttribute('aria-label', 'Reglas y guías'); r.onclick = toggleRulers; ft.prepend(r); ft.prepend(b); applyStageBg(); applyRulers(); })();
+
+/* ============================================================
+   Visuales (estilo Napkin) y auditoría de diseño.
+   buildVisual(spec) convierte una lista de ideas en elementos nativos de Canvi
+   (formas, textos, líneas), así que todo sigue siendo editable a mano.
+   auditDesign(doc) revisa legibilidad, repetición y huellas de diseño hecho por IA.
+   ============================================================ */
+
+const VTHEMES = {
+  institucional: { name: 'Institucional', bg: '#ffffff', ink: '#1c2a3a', sub: '#566170', accent: '#1f4e79', accent2: '#b5532f', line: '#cfd6dd', card: '#f3f5f7', head: 'Source Serif 4', body: 'Source Sans 3' },
+  tinta: { name: 'Tinta y vino', bg: '#fbfaf8', ink: '#16130f', sub: '#5d5750', accent: '#8c1c13', accent2: '#2f5d62', line: '#d8d2c8', card: '#f2eee8', head: 'Newsreader', body: 'IBM Plex Sans' },
+  pizarra: { name: 'Pizarra', bg: '#1e2430', ink: '#e9ecf1', sub: '#a4aebd', accent: '#d9a441', accent2: '#6fa8c7', line: '#3a4252', card: '#272f3d', head: 'Source Serif 4', body: 'Source Sans 3' },
+  bosque: { name: 'Bosque', bg: '#fbfcfa', ink: '#1b2b23', sub: '#53635a', accent: '#2f6b4f', accent2: '#b07d2b', line: '#cdd8d1', card: '#f1f5f2', head: 'IBM Plex Serif', body: 'IBM Plex Sans' },
+  bio: { name: 'Bioingeniería', bg: '#ffffff', ink: '#14213d', sub: '#5a6578', accent: '#0b6e8a', accent2: '#c8553d', line: '#d3dae3', card: '#f2f5f9', head: 'Source Serif 4', body: 'Inter' },
+};
+const VISUAL_KINDS = {
+  process: { name: 'Proceso', min: 2, max: 6, hint: 'pasos en secuencia' },
+  list: { name: 'Lista numerada', min: 2, max: 7, hint: 'pasos o puntos con detalle' },
+  cards: { name: 'Tarjetas', min: 2, max: 8, hint: 'ideas de igual peso' },
+  compare: { name: 'Comparación', min: 2, max: 2, hint: 'dos opciones frente a frente' },
+  timeline: { name: 'Línea de tiempo', min: 3, max: 8, hint: 'hechos con fecha' },
+  cycle: { name: 'Ciclo', min: 3, max: 6, hint: 'proceso que se repite' },
+  hierarchy: { name: 'Jerarquía', min: 2, max: 6, hint: 'un tema y sus partes' },
+  pyramid: { name: 'Pirámide', min: 3, max: 6, hint: 'niveles de base a punta' },
+  funnel: { name: 'Embudo', min: 3, max: 6, hint: 'etapas que filtran' },
+  matrix: { name: 'Matriz 2×2', min: 4, max: 4, hint: 'cuatro cuadrantes' },
+  stats: { name: 'Cifras clave', min: 2, max: 5, hint: 'números que destacan' },
+  venn: { name: 'Diagrama de Venn', min: 2, max: 3, hint: 'solapamiento entre conjuntos' },
+};
+
+function vTheme(t) {
+  if (t && typeof t === 'object') return Object.assign({}, VTHEMES.institucional, t);
+  if (t && VTHEMES[t]) return VTHEMES[t];
+  const pal = (doc && doc.palette) || [];
+  const base = Object.assign({}, VTHEMES.institucional);
+  if (pal.length >= 5) {
+    const bg = typeof page().bg === 'string' ? page().bg : pal[0];
+    Object.assign(base, { bg, ink: pal[4], accent: pal[1], accent2: pal[2], sub: mix(pal[4], bg, .4), line: mix(pal[4], bg, .82), card: mix(pal[4], bg, .94) });
+  }
+  const tx = els().filter(e => e.type === 'text');
+  if (tx.length) {
+    const big = tx.slice().sort((a, b) => b.size - a.size)[0], freq = {}; tx.forEach(e => { freq[e.font] = (freq[e.font] || 0) + 1; });
+    base.head = big.font; base.body = Object.keys(freq).sort((a, b) => freq[b] - freq[a])[0] || base.body;
+  }
+  return base;
+}
+
+/* ---------- ayudas de construcción ---------- */
+function vtx(x, y, w, text, o) { const el = mk('text', Object.assign({ x, y, w, text, lineHeight: 1.3 }, o)); el.h = layoutText(el).h; return el; }
+function vln(x1, y1, x2, y2, stroke, sw, o) { const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1; return mk('line', Object.assign({ x: (x1 + x2) / 2 - len / 2, y: (y1 + y2) / 2 - 10, w: len, h: 20, rot: Math.atan2(dy, dx) * 180 / Math.PI, stroke, strokeW: sw || 2 }, o)); }
+function vItems(items) {
+  return (items || []).map(it => {
+    if (typeof it === 'string') { const m = it.match(/^\s*([^:]{1,60}?)\s*[:：]\s*([\s\S]+)$/); return m ? { title: m[1], text: m[2] } : { title: it, text: '' }; }
+    return Object.assign({ title: '', text: '' }, it);
+  }).filter(it => it.title || it.text || it.value);
+}
+function vBullets(t) { return String(t || '').split(/\s*[;\n]\s*/).filter(Boolean); }
+function vBase(W, H) { return Math.round(Math.max(16, Math.min(40, Math.sqrt(W * H) / 30))); }
+function vSuggest(items) {
+  const it = vItems(items), n = it.length, out = [];
+  const yearish = it.filter(x => /^(19|20)\d\d\b|^\d{1,2}\/\d{1,2}|^(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)/i.test(x.title)).length;
+  const numeric = it.filter(x => x.value != null && x.value !== '' || /^[~≈]?\d[\d.,]*\s*(%|[a-zA-Zµ°/]{0,4})?$/.test(x.title.trim())).length;
+  if (numeric >= Math.max(2, n - 1)) out.push('stats');
+  if (yearish >= Math.max(3, n - 1)) out.push('timeline');
+  if (n === 2) out.push('compare', 'venn');
+  if (n === 4) out.push('matrix');
+  Object.keys(VISUAL_KINDS).forEach(k => { const v = VISUAL_KINDS[k]; if (n >= v.min && n <= v.max && !out.includes(k)) out.push(k); });
+  return out.filter(k => n >= VISUAL_KINDS[k].min && n <= VISUAL_KINDS[k].max);
+}
+
+const VB = {
+  process(it, X, Y, W, H, T, S, o) {
+    const n = it.length, gap = S * 1.8, cw = (W - gap * (n - 1)) / n, ly = Y + S * .5, out = [];
+    out.push(vln(X, ly, X + W, ly, T.line, 2, { capEnd: 'arrow' }));
+    it.forEach((a, i) => {
+      const x = X + i * (cw + gap); let y = ly + S * 1.1;
+      out.push(SH('ellipse', x, ly - S * .32, S * .64, S * .64, T.accent));
+      const nm = vtx(x, y, cw, String(i + 1).padStart(2, '0'), { font: T.body, size: Math.round(S * .9), weight: 700, color: T.accent, letterSpacing: 1 }); out.push(nm); y += nm.h + S * .25;
+      const t = vtx(x, y, cw, a.title, { font: T.head, size: Math.round(S * 1.25), weight: 700, color: T.ink }); out.push(t); y += t.h + S * .35;
+      if (a.text) out.push(vtx(x, y, cw, a.text, { font: T.body, size: S, color: T.sub, lineHeight: 1.4 }));
+    });
+    return out;
+  },
+  list(it, X, Y, W, H, T, S, o) {
+    const n = it.length, out = [], numW = S * 3.2, tw = W - numW;
+    const blocks = it.map(a => { const t = vtx(X + numW, 0, tw, a.title, { font: T.head, size: Math.round(S * 1.2), weight: 700, color: T.ink }); const b = a.text ? vtx(X + numW, 0, tw, a.text, { font: T.body, size: S, color: T.sub, lineHeight: 1.4 }) : null; return { t, b, h: t.h + (b ? b.h + S * .25 : 0) }; });
+    const total = blocks.reduce((a, b) => a + b.h, 0), pad = Math.max(S * .6, Math.min(S * 1.6, (H - total) / (n * 2)));
+    let y = Y;
+    blocks.forEach((bl, i) => {
+      y += pad; if (i === 0) out.push(vln(X, Y, X + W, Y, T.ink, 2));
+      if (o.numbered !== false) out.push(vtx(X, y - S * .1, numW - S, String(i + 1).padStart(2, '0'), { font: T.head, size: Math.round(S * 1.7), weight: 700, color: T.accent }));
+      bl.t.y = y; out.push(bl.t); if (bl.b) { bl.b.y = y + bl.t.h + S * .25; out.push(bl.b); }
+      y += bl.h + pad; out.push(vln(X, y, X + W, y, T.line, 1.5));
+    });
+    return out;
+  },
+  cards(it, X, Y, W, H, T, S, o) {
+    const n = it.length, cols = n <= 3 ? n : n === 4 ? 2 : n <= 6 ? 3 : 4, rows = Math.ceil(n / cols), gap = S * 1.2, cw = (W - gap * (cols - 1)) / cols, out = [], p = S * 1.1;
+    const parts = it.map(a => { const t = vtx(0, 0, cw - p * 2, a.title, { font: T.head, size: Math.round(S * 1.2), weight: 700, color: T.ink }); const b = a.text ? vtx(0, 0, cw - p * 2, a.text, { font: T.body, size: S, color: T.sub, lineHeight: 1.4 }) : null; return { t, b, h: p * 2 + t.h + (b ? b.h + S * .4 : 0) }; });
+    const ch = Math.min((H - gap * (rows - 1)) / rows, Math.max(...parts.map(q => q.h)));
+    it.forEach((a, i) => {
+      const x = X + (i % cols) * (cw + gap), y = Y + Math.floor(i / cols) * (ch + gap), q = parts[i];
+      out.push(SH('rrect', x, y, cw, ch, T.card, { radius: 6, stroke: T.line, strokeW: 1 }));
+      q.t.x = x + p; q.t.y = y + p; out.push(q.t); if (q.b) { q.b.x = x + p; q.b.y = y + p + q.t.h + S * .4; out.push(q.b); }
+    });
+    return out;
+  },
+  compare(it, X, Y, W, H, T, S, o) {
+    const gap = S * 3, cw = (W - gap) / 2, out = [], cols = [T.accent, T.accent2];
+    it.slice(0, 2).forEach((a, i) => {
+      const x = X + i * (cw + gap); let y = Y;
+      const t = vtx(x, y, cw, a.title, { font: T.head, size: Math.round(S * 1.5), weight: 700, color: cols[i] }); out.push(t); y += t.h + S * .5;
+      out.push(vln(x, y, x + cw, y, cols[i], 3)); y += S * .9;
+      const bl = vBullets(a.text); if (bl.length > 1) out.push(vtx(x, y, cw, bl.join('\n'), { font: T.body, size: S, color: T.ink, list: 'bullet', lineHeight: 1.55 })); else if (bl.length) out.push(vtx(x, y, cw, bl[0], { font: T.body, size: S, color: T.ink, lineHeight: 1.45 }));
+    });
+    out.push(vln(X + cw + gap / 2, Y, X + cw + gap / 2, Y + H, T.line, 1.5));
+    return out;
+  },
+  timeline(it, X, Y, W, H, T, S, o) {
+    const n = it.length, alt = n > 4, step = W / n, my = Y + H / 2, out = [vln(X, my, X + W, my, T.ink, 2)];
+    it.forEach((a, i) => {
+      const cx = X + step * i + step / 2, up = alt && i % 2 === 0, bw = Math.min(step * (alt ? 1.9 : .92), step * 2 - S), bx = Math.max(X, Math.min(X + W - bw, cx - bw / 2));
+      out.push(SH('ellipse', cx - S * .38, my - S * .38, S * .76, S * .76, i === n - 1 ? T.accent2 : T.accent, { stroke: T.bg, strokeW: 3 }));
+      const yr = vtx(bx, 0, bw, a.title, { font: T.head, size: Math.round(S * 1.3), weight: 700, color: T.accent, align: 'center' });
+      const tx = a.text ? vtx(bx, 0, bw, a.text, { font: T.body, size: Math.round(S * .95), color: T.sub, align: 'center', lineHeight: 1.35 }) : null;
+      const hh = yr.h + (tx ? tx.h + S * .25 : 0);
+      if (up) { const y0 = my - S * 1.1 - hh; yr.y = y0; if (tx) tx.y = y0 + yr.h + S * .25; out.push(vln(cx, my - S * .4, cx, my - S * 1.0, T.line, 1.5)); }
+      else { const y0 = my + S * 1.1; yr.y = y0; if (tx) tx.y = y0 + yr.h + S * .25; out.push(vln(cx, my + S * .4, cx, my + S * 1.0, T.line, 1.5)); }
+      out.push(yr); if (tx) out.push(tx);
+    });
+    return out;
+  },
+  cycle(it, X, Y, W, H, T, S, o) {
+    const n = it.length, cx = X + W / 2, cy = Y + H / 2, r = S * 1.35, labW = Math.min(W * .3, S * 15), out = [];
+    const ang = i => -Math.PI / 2 + i * 2 * Math.PI / n + (n % 2 === 0 ? Math.PI / n : 0), hasTB = it.some((_, i) => Math.abs(Math.cos(ang(i))) <= .35);
+    const Rr = Math.max(S * 3, Math.min(H / 2 - r - (hasTB ? S * 3.2 : S * 1.2), W / 2 - labW - r - S));
+    out.push(SH('ellipse', cx - Rr, cy - Rr, Rr * 2, Rr * 2, '', { stroke: T.line, strokeW: 3 }));
+    it.forEach((a, i) => {
+      const am = ang(i) + Math.PI / n, mx = cx + Rr * Math.cos(am), my = cy + Rr * Math.sin(am);
+      out.push(SH('triangle', mx - S * .38, my - S * .38, S * .76, S * .76, T.accent2, { rot: am * 180 / Math.PI + 90 + 90 }));
+    });
+    it.forEach((a, i) => {
+      const t = ang(i), nx = cx + Rr * Math.cos(t), ny = cy + Rr * Math.sin(t), c = Math.cos(t), s = Math.sin(t);
+      out.push(SH('ellipse', nx - r, ny - r, r * 2, r * 2, T.accent, { text: String(i + 1), font: T.head, size: Math.round(S * 1.3), weight: 700, color: contrastInk(T.accent) }));
+      const al = c > .35 ? 'left' : c < -.35 ? 'right' : 'center', lw = labW;
+      const lx = al === 'left' ? nx + r + S * .7 : al === 'right' ? nx - r - S * .7 - lw : nx - lw / 2;
+      const ti = vtx(lx, 0, lw, a.title, { font: T.head, size: Math.round(S * 1.15), weight: 700, color: T.ink, align: al });
+      const tx = a.text ? vtx(lx, 0, lw, a.text, { font: T.body, size: Math.round(S * .92), color: T.sub, align: al, lineHeight: 1.35 }) : null;
+      const hh = ti.h + (tx ? tx.h + S * .2 : 0);
+      let ty = al === 'center' ? (s < 0 ? ny - r - S * .5 - hh : ny + r + S * .5) : ny - hh / 2;
+      ti.y = ty; if (tx) tx.y = ty + ti.h + S * .2; out.push(ti); if (tx) out.push(tx);
+    });
+    return out;
+  },
+  hierarchy(it, X, Y, W, H, T, S, o) {
+    const n = it.length, out = [], gap = S * 1.2, cw = (W - gap * (n - 1)) / n, rw = Math.min(W * .5, S * 20), rh = S * 3, rx = X + W / 2 - rw / 2;
+    out.push(SH('rrect', rx, Y, rw, rh, T.accent, { radius: 6, text: o.title || 'Tema central', font: T.head, size: Math.round(S * 1.3), weight: 700, color: contrastInk(T.accent) }));
+    const cy = Y + rh + S * 3, midY = Y + rh + S * 1.5;
+    out.push(vln(X + W / 2, Y + rh, X + W / 2, midY, T.ink, 2));
+    if (n > 1) out.push(vln(X + cw / 2, midY, X + W - cw / 2, midY, T.ink, 2));
+    it.forEach((a, i) => {
+      const x = X + i * (cw + gap), p = S * .9;
+      out.push(vln(x + cw / 2, midY, x + cw / 2, cy, T.ink, 2));
+      const t = vtx(x + p, cy + p, cw - p * 2, a.title, { font: T.head, size: Math.round(S * 1.1), weight: 700, color: T.ink });
+      const body = a.children && a.children.length ? a.children.join('\n') : a.text;
+      const tb = body ? vtx(x + p, cy + p + t.h + S * .35, cw - p * 2, body, { font: T.body, size: Math.round(S * .95), color: T.sub, lineHeight: 1.4, list: a.children && a.children.length ? 'bullet' : 'none' }) : null;
+      const bh = Math.min(H - (cy - Y), p * 2 + t.h + (tb ? tb.h + S * .35 : 0));
+      out.push(SH('rrect', x, cy, cw, bh, T.card, { radius: 6, stroke: T.line, strokeW: 1 })); out.push(t); if (tb) out.push(tb);
+    });
+    return out;
+  },
+  pyramid(it, X, Y, W, H, T, S, o) {
+    const n = it.length, inv = o.invert, out = [], hasText = it.some(a => a.text), pw = hasText ? W * .52 : W, lh = (H - S * .4 * (n - 1)) / n;
+    it.forEach((a, i) => {
+      const w = Math.max(pw * .4, pw * (inv ? 1 - i / n * .6 : .4 + (n > 1 ? i / (n - 1) : 1) * .6)), y = Y + i * (lh + S * .4);
+      const fill = mix(T.accent, T.bg, (n > 1 ? i / (n - 1) : 0) * .5);
+      out.push(SH('rect', X + pw / 2 - w / 2, y, w, lh, fill, { text: a.title, font: T.head, size: Math.round(S * 1.05), weight: 700, color: contrastInk(fill) }));
+      if (hasText && a.text) { out.push(vln(X + pw / 2 + w / 2 + S * .4, y + lh / 2, X + pw + S * 1.2, y + lh / 2, T.line, 1.5)); const tt = vtx(X + pw + S * 1.6, 0, W - pw - S * 1.6, a.text, { font: T.body, size: S, color: T.sub, lineHeight: 1.35 }); tt.y = y + lh / 2 - tt.h / 2; out.push(tt); }
+    });
+    return out;
+  },
+  funnel(it, X, Y, W, H, T, S, o) { return VB.pyramid(it, X, Y, W, H, T, S, Object.assign({}, o, { invert: true })); },
+  matrix(it, X, Y, W, H, T, S, o) {
+    const out = [], cw = W / 2, ch = H / 2, p = S * 1.1, m = S * 2.2;
+    [[0, 0], [1, 0], [0, 1], [1, 1]].forEach(([cx, cy], i) => {
+      const a = it[i] || { title: '', text: '' }, x = X + cx * cw, y = Y + cy * ch;
+      if ((cx + cy) % 2 === 0) out.push(SH('rect', x, y, cw, ch, T.card));
+      const t = vtx(x + p, y + p + (cy ? 0 : 0), cw - p * 2, a.title, { font: T.head, size: Math.round(S * 1.2), weight: 700, color: i === 1 ? T.accent : T.ink }); out.push(t);
+      if (a.text) out.push(vtx(x + p, y + p + t.h + S * .3, cw - p * 2, a.text, { font: T.body, size: Math.round(S * .95), color: T.sub, lineHeight: 1.4 }));
+    });
+    out.push(vln(X + cw, Y, X + cw, Y + H, T.ink, 2), vln(X, Y + ch, X + W, Y + ch, T.ink, 2));
+    if (o.xLabel) out.push(vtx(X, Y + H + S * .4, W, o.xLabel + '  →', { font: T.body, size: Math.round(S * .9), weight: 600, color: T.sub, align: 'right' }));
+    if (o.yLabel) out.push(vtx(X - S * 1.3 - H / 2, Y + H / 2 - S * .6, H, '↑  ' + o.yLabel, { font: T.body, size: Math.round(S * .9), weight: 600, color: T.sub, align: 'right', rot: -90 }));
+    return out;
+  },
+  stats(it, X, Y, W, H, T, S, o) {
+    const n = it.length, gap = S * 2, cw = (W - gap * (n - 1)) / n, out = [], big = Math.round(Math.min(S * 4.2, cw / 3.4));
+    it.forEach((a, i) => {
+      const x = X + i * (cw + gap), val = a.value != null && a.value !== '' ? String(a.value) : a.title, lab = a.value != null && a.value !== '' ? a.title : a.text;
+      out.push(vln(x, Y, x + cw, Y, i === 0 ? T.accent : T.ink, 3));
+      const v = vtx(x, Y + S * .8, cw, val, { font: T.head, size: big, weight: 700, color: i === 0 ? T.accent : T.ink, lineHeight: 1.05 }); out.push(v);
+      let y = Y + S * .8 + v.h + S * .5;
+      if (lab) { const l = vtx(x, y, cw, lab, { font: T.body, size: Math.round(S * 1.05), weight: 600, color: T.ink, lineHeight: 1.3 }); out.push(l); y += l.h + S * .25; }
+      if (a.value != null && a.value !== '' && a.text) out.push(vtx(x, y, cw, a.text, { font: T.body, size: Math.round(S * .95), color: T.sub, lineHeight: 1.35 }));
+    });
+    return out;
+  },
+  venn(it, X, Y, W, H, T, S, o) {
+    const n = Math.min(3, it.length), out = [], cols = [T.accent, T.accent2, T.ink];
+    const R = Math.min(H * (n === 3 ? .34 : .44), W * (n === 3 ? .22 : .28)), cx = X + W / 2, cy = Y + H / 2;
+    const pos = n === 2 ? [[cx - R * .62, cy], [cx + R * .62, cy]] : [[cx - R * .6, cy + R * .38], [cx + R * .6, cy + R * .38], [cx, cy - R * .62]];
+    for (let i = 0; i < n; i++) out.push(SH('ellipse', pos[i][0] - R, pos[i][1] - R, R * 2, R * 2, rgba(cols[i], .2), { stroke: cols[i], strokeW: 3 }));
+    for (let i = 0; i < n; i++) {
+      const a = it[i], side = n === 2 ? (i ? 1 : -1) : (i === 2 ? 0 : (i ? 1 : -1)), lw = Math.min(W * .28, S * 14);
+      const ti = vtx(0, 0, lw, a.title, { font: T.head, size: Math.round(S * 1.2), weight: 700, color: cols[i] === T.ink ? T.ink : cols[i], align: side > 0 ? 'left' : side < 0 ? 'right' : 'center' });
+      const tx = a.text ? vtx(0, 0, lw, a.text, { font: T.body, size: Math.round(S * .92), color: T.sub, lineHeight: 1.35, align: ti.align }) : null;
+      const hh = ti.h + (tx ? tx.h + S * .2 : 0);
+      const lx = side > 0 ? pos[i][0] + R + S * .8 : side < 0 ? pos[i][0] - R - S * .8 - lw : cx - lw / 2, ly = side === 0 ? pos[i][1] - R - S * .5 - hh : pos[i][1] - hh / 2;
+      ti.x = lx; ti.y = ly; out.push(ti); if (tx) { tx.x = lx; tx.y = ly + ti.h + S * .2; out.push(tx); }
+    }
+    if (o.center) out.push(vtx(cx - S * 4, n === 2 ? cy - S * .8 : cy + R * .1, S * 8, o.center, { font: T.body, size: Math.round(S * .95), weight: 700, color: T.ink, align: 'center' }));
+    return out;
+  },
+};
+
+/** spec: {kind, items:[...], x,y,w,h, theme, size, title, xLabel, yLabel, center, id}. Devuelve {elements, kind, box} */
+function buildVisual(spec) {
+  const kind = spec.kind && VB[spec.kind] ? spec.kind : (vSuggest(spec.items)[0] || 'cards');
+  const it = vItems(spec.items); if (!it.length) throw new Error('Faltan los elementos (items) del visual.');
+  const X = spec.x != null ? +spec.x : Math.round(doc.w * .07), Y = spec.y != null ? +spec.y : Math.round(doc.h * .26);
+  const W = spec.w != null ? +spec.w : Math.round(doc.w * .86), H = spec.h != null ? +spec.h : Math.round(doc.h * .6);
+  const T = vTheme(spec.theme), S = spec.size ? +spec.size : vBase(W, H);
+  const built = VB[kind](it, X, Y, W, H, T, S, spec);
+  const gid = uid(), prefix = String(spec.id || kind).replace(/[^\w-]/g, '');
+  if (spec.center_vertical !== false && ['process', 'list', 'compare', 'stats', 'hierarchy', 'cards', 'pyramid', 'funnel'].includes(kind)) {
+    let y0 = Infinity, y1 = -Infinity; built.forEach(e => { let a = e.y, b = e.y + e.h; if (e.type === 'line') { const cy = e.y + e.h / 2, hh = Math.abs(Math.sin((e.rot || 0) * Math.PI / 180)) * e.w / 2; a = cy - hh; b = cy + hh; } y0 = Math.min(y0, a); y1 = Math.max(y1, b); });
+    const dy = Math.max(0, Math.min((H - (y1 - y0)) * .4, H * .25)); if (dy > 1) built.forEach(e => { e.y += dy; });
+  }
+  built.forEach((e, i) => { e.gid = gid; e.id = prefix + '-' + (i + 1); });
+  return { kind, elements: built, box: { x: X, y: Y, w: W, h: H } };
+}
+function insertVisual(spec) {
+  const r = buildVisual(spec);
+  const ids = r.elements.map(e => { e.id = uid(); return e.id; }); r.elements.forEach(e => els().push(e));
+  select(ids); commit(); return r;
+}
+
+/* ============================================================
+   Auditoría
+   ============================================================ */
+const AI_PHRASES = [
+  'en el mundo actual', 'en la actualidad', 'cabe destacar', 'es importante destacar', 'es importante señalar', 'desempeña un papel', 'juega un papel', 'papel fundamental', 'papel crucial', 'panorama', 'multifacético',
+  'sinergia', 'holístic', 'paradigma', 'en conclusión', 'sin lugar a dudas', 'revolucion', 'de vanguardia', 'robusto', 'aprovechar el potencial', 'potenciar', 'impulsar', 'fomentar', 'en un mundo', 'ámbito', 'entramado',
+  'delve', 'leverage', "in today's", 'unlock', 'game-changer', 'seamless',
+];
+const PLACEHOLDER_RE = /lorem ipsum|reemplaza (este|tu)|tu nombre|correo@|texto de ejemplo|datos de ejemplo|título aquí|^texto$|^encabezado$|^dato$|^subtítulo$|^título$|escribe aquí/i;
+function wcagLum(hex) { const [r, g, b] = hexRgb(hex).map(v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * r + .7152 * g + .0722 * b; }
+function wcagRatio(a, b) { const l1 = wcagLum(a), l2 = wcagLum(b); return (Math.max(l1, l2) + .05) / (Math.min(l1, l2) + .05); }
+const solidOf = f => typeof f === 'string' ? (/^#[0-9a-f]{3,8}$/i.test(f) ? f : null) : (f && f.stops && /^#/.test(f.stops[0]) ? f.stops[0] : null);
+function hueBucket(hex) { const [r, g, b] = hexRgb(hex).map(v => v / 255), mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn; if (d < .14 || mx < .12) return null; let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h = (h * 60 + 360) % 360; return Math.round(h / 40) % 9; }
+function auditDesign(d, opts) {
+  opts = opts || {}; const out = [], W = d.w, H = d.h, slide = W > H && W >= 1200, formal = opts.formal !== false;
+  const add = (pi, id, rule, sev, msg) => out.push({ page: pi, id: id || null, rule, severity: sev, message: msg });
+  const saved = { doc: doc, pageIdx: pageIdx }; doc = d;
+  const wc = s => (String(s || '').match(/[\p{L}\p{N}]+/gu) || []).length;
+  const minBody = slide ? Math.round(W * .0104) : Math.max(12, Math.round(W * .016)), fps = [], fontsUsed = new Set();
+  d.pages.forEach((pg, pi) => {
+    const E = pg.elements.filter(e => !e.hidden), T = E.filter(e => e.type === 'text');
+    T.forEach(e => { e.h = layoutText(e).h; if (e.font) fontsUsed.add(e.font); });
+    const label = pg.title || ('página ' + (pi + 1)), isEdge = /portada|cierre|gracias|agradec/i.test(pg.title || '') || pi === 0 || pi === d.pages.length - 1;
+    if (!E.length) add(pi, null, 'vacia', 'warn', `La página ${pi + 1} está vacía.`);
+    // marcadores de posición
+    E.forEach(e => { const t = String(e.text || ''); if (t && PLACEHOLDER_RE.test(t.trim()) && ['text', 'shape'].includes(e.type)) add(pi, e.id, 'relleno', 'error', `Texto de relleno sin reemplazar: "${t.slice(0, 50)}".`); if (e.type === 'image' && !e.src) add(pi, e.id, 'imagen-vacia', 'error', 'Marco de imagen sin foto.'); });
+    // tamaños
+    T.forEach(e => { const foot = e.y > H * .9 || /fuente|figura|tabla|elaboración/i.test(e.text); const lim = foot ? minBody * .72 : minBody; if (e.size < lim) add(pi, e.id, 'texto-pequeno', e.size < lim * .8 ? 'error' : 'warn', `Texto de ${Math.round(e.size)} px (mínimo cómodo ${Math.round(lim)} px): "${String(e.text).slice(0, 40)}".`); });
+    // exceso de texto
+    const words = T.reduce((a, e) => a + wc(e.text), 0) + E.filter(e => e.type === 'shape').reduce((a, e) => a + wc(e.text), 0);
+    const lim1 = slide ? 70 : 230, lim2 = slide ? 110 : 360;
+    if (words > lim1 && !/referencia|bibliograf|anexo|apéndice|glosario/i.test(pg.title || '')) add(pi, null, 'mucho-texto', words > lim2 ? 'error' : 'warn', `${words} palabras en ${label}; en una diapositiva se leen bien unas ${slide ? 50 : 180} o menos. Recorta lo que dirías en voz alta, no lo que dirías por escrito.`);
+    // títulos
+    if (slide && !isEdge && T.length && !/referencia|bibliograf|anexo/i.test(pg.title || '')) { const t = T.filter(e => e.y < H * .3 && !/^[\s\d.,%$]+$/.test(String(e.text))).sort((a, b) => b.size - a.size)[0] || { text: 'a b c', size: 0, id: null }; const n = wc(t.text); if (n <= 2 && t.size >= minBody * 1.6) add(pi, t.id, 'titulo-etiqueta', 'info', `El título "${t.text}" es una etiqueta. Escribe la conclusión de la diapositiva como frase (por ejemplo: qué se encontró o qué se decide).`); if (String(t.text).length > 95) add(pi, t.id, 'titulo-largo', 'warn', 'Título de más de 95 caracteres.'); }
+    // texto y estilo
+    T.forEach(e => {
+      const t = String(e.text || ''), low = t.toLowerCase();
+      AI_PHRASES.forEach(p => { if (low.includes(p)) add(pi, e.id, 'frase-ia', 'warn', `Expresión típica de texto de IA: "${p}".`); });
+      if (/—/.test(t)) add(pi, e.id, 'raya', 'info', 'Usa raya (—). En texto de diapositiva suele leerse como huella de IA; usa dos puntos, coma o punto.');
+      if (/\p{Extended_Pictographic}/u.test(t) && !/[→↑↓←×≥≤≈±°·✓]/.test(t)) add(pi, e.id, 'emoji', 'warn', 'Emoji en el texto; en una presentación formal conviene quitarlo.');
+      if (/no (es|son|se trata de)[^.]{2,60}(sino|,? sino que)/i.test(t)) add(pi, e.id, 'no-es-sino', 'warn', 'Estructura "no es X, sino Y"; marca muy frecuente de IA.');
+      if (e.align === 'center' && wc(t) > 18 && slide) add(pi, e.id, 'parrafo-centrado', 'info', 'Párrafo centrado; alinea a la izquierda para leer mejor.');
+    });
+    // solapes y bordes
+    for (let i = 0; i < T.length; i++) for (let j = i + 1; j < T.length; j++) { const a = T[i], b = T[j], ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x), oy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y); if (ox > 4 && oy > 4 && ox * oy > .12 * Math.min(a.w * a.h, b.w * b.h) && !(a.rot || b.rot)) add(pi, a.id, 'solape', 'error', `Los textos "${String(a.text).slice(0, 25)}" y "${String(b.text).slice(0, 25)}" se pisan.`); }
+    E.forEach(e => { if (['text', 'chart', 'table', 'image'].includes(e.type) && !e.rot && (e.x < -4 || e.y < -4 || e.x + e.w > W + 4 || e.y + e.h > H + 4)) add(pi, e.id, 'fuera', 'warn', `${e.type} (${e.id}) se sale del lienzo.`); });
+    // contraste
+    const bg0 = solidOf(pg.bg) || '#ffffff';
+    E.forEach((e, k) => {
+      if (e.type !== 'text' || e.fx && e.fx.kind && e.fx.kind !== 'none') return; const fg = solidOf(e.color); if (!fg) return;
+      let bg = bg0, cx = e.x + e.w / 2, cy = e.y + Math.min(e.h, 40) / 2;
+      for (let q = k - 1; q >= 0; q--) { const s = E[q]; if (s.type === 'shape' && s.fill && !s.rot && cx >= s.x && cx <= s.x + s.w && cy >= s.y && cy <= s.y + s.h) { const sf = solidOf(s.fill); if (sf && !/^rgba/.test(String(s.fill))) { bg = sf; break; } } }
+      const r = wcagRatio(fg, bg); if (r < 3) add(pi, e.id, 'contraste', 'error', `Contraste ${r.toFixed(1)}:1 en "${String(e.text).slice(0, 30)}" (mínimo 3:1 para texto grande, 4,5:1 para texto normal).`); else if (r < 4.5 && e.size < minBody * 1.4) add(pi, e.id, 'contraste', 'warn', `Contraste ${r.toFixed(1)}:1 en "${String(e.text).slice(0, 30)}" (recomendado 4,5:1).`);
+    });
+    // color
+    if (formal) {
+      const hues = new Set(); E.forEach(e => { [e.fill, e.stroke, e.color, e.headFill].forEach(c => { const s = solidOf(c); if (s) { const h = hueBucket(s); if (h !== null) hues.add(h); } }); if (e.type === 'chart') (e.colors || []).slice(0, e.data ? e.data.length : 0).forEach(c => { const h = hueBucket(c); if (h !== null) hues.add(h); }); });
+      if (hues.size > 4) add(pi, null, 'muchos-colores', 'warn', `${hues.size} familias de color en ${label}. Una sobria usa un acento, quizá un segundo, y neutros.`);
+      if (E.some(e => e.fill && typeof e.fill === 'object') || (pg.bg && typeof pg.bg === 'object')) add(pi, null, 'degradado', 'info', 'Fondo o relleno con degradado: es de lo más reconocible del diseño hecho con IA. En un documento formal, color liso.');
+      const bars = E.filter(e => e.type === 'shape' && e.shape === 'rect' && Math.min(e.w, e.h) <= 8 && Math.max(e.w, e.h) >= 40 && e.y < H * .95).length; if (bars > 3) add(pi, null, 'barras-acento', 'info', `${bars} barras finas de acento; si cada bloque lleva la suya, parece plantilla.`);
+    }
+    // fuentes de datos
+    if (formal && E.some(e => e.type === 'chart' || e.type === 'table') && !T.some(e => /fuente|source|elaboraci|adaptad/i.test(e.text))) add(pi, null, 'sin-fuente', 'warn', `${label} muestra datos pero no cita la fuente (añade una línea "Fuente: …" o "Elaboración propia").`);
+    E.forEach(e => { if (e.type === 'chart' && (e.kind === 'pie' || e.kind === 'donut') && (e.data || []).length > 5) add(pi, e.id, 'circular-saturado', 'warn', 'Gráfico circular con más de 5 partes; usa barras ordenadas.'); });
+    // huella de distribución
+    const fp = E.filter(e => e.type !== 'line').map(e => `${e.type}${Math.round(e.x / W * 6)}${Math.round(e.y / H * 6)}${Math.round(e.w / W * 6)}${Math.round(e.h / H * 6)}`).sort().join('|'); fps.push(fp);
+    const eq = {}; E.filter(e => e.type === 'shape' && e.w > W * .1 && e.w < W * .45 && e.h > H * .1).forEach(e => { const k = Math.round(e.w / 6) + 'x' + Math.round(e.h / 6); eq[k] = (eq[k] || 0) + 1; }); if (Object.values(eq).some(v => v >= 3)) pg._eqCards = true;
+  });
+  if (slide && d.pages.length >= 4) {
+    for (let i = 0; i + 2 < fps.length; i++) if (fps[i] && fps[i] === fps[i + 1] && fps[i] === fps[i + 2]) { add(i, null, 'misma-distribucion', 'warn', `Las páginas ${i + 1}, ${i + 2} y ${i + 3} tienen la misma distribución. Varía: una cifra grande, una tabla, un esquema, una imagen a página completa.`); break; }
+    const eqPages = d.pages.filter(p => p._eqCards).length; if (eqPages >= 3) add(0, null, 'tarjetas-iguales', 'warn', `${eqPages} páginas usan tres o más tarjetas del mismo tamaño en fila; es el patrón más repetido por los generadores de diapositivas.`);
+  }
+  d.pages.forEach(p => { delete p._eqCards; });
+  if (fontsUsed.size > 3) add(0, null, 'muchas-fuentes', 'warn', `${fontsUsed.size} tipos de letra distintos (${[...fontsUsed].join(', ')}). Con dos basta: uno para títulos y otro para texto.`);
+  if (slide && d.pages.length >= 6 && !d.pages.some(p => p.elements.some(e => e.type === 'text' && /^\s*\d{1,2}\s*$/.test(e.text) && e.y > H * .85))) add(0, null, 'sin-numeracion', 'info', 'Ninguna diapositiva lleva número de página; ayuda a quien pregunta ("volvamos a la 7").');
+  doc = saved.doc; pageIdx = saved.pageIdx;
+  const score = Math.max(0, 100 - out.reduce((a, f) => a + (f.severity === 'error' ? 6 : f.severity === 'warn' ? 3 : 1), 0));
+  return { score, errors: out.filter(f => f.severity === 'error').length, warnings: out.filter(f => f.severity === 'warn').length, infos: out.filter(f => f.severity === 'info').length, findings: out };
+}
+
+/* ============================================================
+   Plantillas formales de presentación.
+   Cada diapositiva tiene su propia distribución (cifras, dos columnas, gráfico con lectura,
+   tabla, esquema), con títulos que enuncian la conclusión y una fuente al pie.
+   ============================================================ */
+function formalDeck(key) {
+  const T = VTHEMES[key], W = 1920, M = 120, ink = T.ink, sub = T.sub;
+  const foot = n => [vln(M, 1004, W - M, 1004, T.line, 1.5), vtx(M, 1026, 1200, 'Nombre de la presentación · Curso', { font: T.body, size: 20, color: sub }), vtx(W - M - 100, 1026, 100, String(n), { font: T.body, size: 20, color: sub, align: 'right' })];
+  const kick = k => vtx(M, 92, 900, k.toUpperCase(), { font: T.body, size: 20, weight: 700, color: T.accent, letterSpacing: 2 });
+  const head = (k, title, o) => [kick(k), vtx(M, 132, (o && o.w) || 1560, title, { font: T.head, size: 54, weight: 700, color: ink, lineHeight: 1.15 })];
+  const V = (kind, items, x, y, w, h, o) => buildVisual(Object.assign({ kind, items, x, y, w, h, theme: T, id: kind }, o || {})).elements;
+  const src = t => vtx(M, 940, 1500, t, { font: T.body, size: 20, color: sub });
+  const pages = [];
+  // 1 portada: asimétrica, sin adornos
+  pages.push(P(T.bg, [
+    vln(M, 150, 700, 150, T.accent, 4), vtx(M, 176, 900, 'CURSO · UNIVERSIDAD · 2026', { font: T.body, size: 22, weight: 700, color: sub, letterSpacing: 2 }),
+    vtx(M, 330, 1380, 'Un sensor óptico de bajo costo mide glucosa con menos de 5 % de error', { font: T.head, size: 88, weight: 700, color: ink, lineHeight: 1.08 }),
+    vtx(M, 660, 1100, 'Informe de avance del proyecto: diseño, calibración y primeras pruebas', { font: T.body, size: 36, color: sub, lineHeight: 1.35 }),
+    vln(M, 880, W - M, 880, T.line, 1.5), vtx(M, 904, 800, 'Nombre Apellido, Nombre Apellido', { font: T.body, size: 28, weight: 600, color: ink }), vtx(W - M - 700, 904, 700, 'Docente: Nombre Apellido · 15 de noviembre de 2026', { font: T.body, size: 28, color: sub, align: 'right' }),
+  ], 'Portada'));
+  // 2 contexto: cifras
+  pages.push(P(T.bg, [...foot(2), ...head('Contexto', 'Dos de cada tres centros rurales no tienen cómo medir glucosa en el lugar'),
+    ...V('stats', [{ value: '68 %', title: 'de los centros sin glucómetro de laboratorio', text: 'Encuesta de infraestructura, 2024' }, { value: '3 h', title: 'de viaje al hospital más cercano', text: 'Promedio en la región' }, { value: '$4.000', title: 'cuesta un equipo convencional', text: 'Precio de lista, USD' }], M, 400, W - M * 2, 440),
+    src('Fuente: Ministerio de Salud, 2024. Datos de ejemplo; reemplázalos con los tuyos.')], 'Contexto'));
+  // 3 pregunta y objetivos: dos columnas desiguales
+  pages.push(P(T.bg, [...foot(3), kick('Pregunta y objetivos'),
+    vtx(M, 200, 760, '¿Puede un sensor de menos de 20 dólares medir glucosa con un error aceptable en campo?', { font: T.head, size: 58, weight: 700, color: ink, lineHeight: 1.18 }),
+    vln(1000, 200, 1000, 900, T.line, 1.5),
+    ...V('list', ['Diseñar: Un sensor óptico con LED y fotodiodo', 'Calibrar: Con tres soluciones patrón de glucosa', 'Validar: Contra un glucómetro comercial en 30 muestras'], 1080, 200, 720, 700, { size: 30 })], 'Objetivos'));
+  // 4 método: proceso
+  pages.push(P(T.bg, [...foot(4), ...head('Método', 'La medición se obtiene en cuatro pasos que se repiten en cada muestra'),
+    ...V('process', ['Muestra: 2 µL de sangre capilar en ayunas', 'Lectura: Absorbancia a 940 nm con fotodiodo', 'Calibración: Recta con tres patrones', 'Resultado: Concentración en mg/dL'], M, 400, W - M * 2, 480),
+    src('Elaboración propia a partir del protocolo del laboratorio.')], 'Método'));
+  // 5 resultado: gráfico y lectura
+  pages.push(P(T.bg, [...foot(5), ...head('Resultados', 'El prototipo reduce el error a 2,1 %, menos de la mitad del mejor método de referencia', { w: 1500 }),
+    mk('chart', { x: M, y: 360, w: 1060, h: 560, kind: 'bar', data: [{ label: 'Método A', value: 8.2 }, { label: 'Método B', value: 5.1 }, { label: 'Método C', value: 3.4 }, { label: 'Prototipo', value: 2.1 }], colors: [T.accent, T.accent2], highlight: 'Prototipo', color: ink, font: T.body, size: 26, showValues: true, decimals: 1, unit: ' %', title: 'Error medio de medición' }),
+    vtx(1300, 380, 500, '2,1 %', { font: T.head, size: 150, weight: 700, color: T.accent, lineHeight: 1 }),
+    vtx(1300, 560, 500, 'de error medio en 30 muestras, frente a 8,2 % del método A. La diferencia es significativa (p < 0,01).', { font: T.body, size: 30, color: ink, lineHeight: 1.4 }),
+    src('Fuente: mediciones propias, n = 30. Datos de ejemplo.')], 'Resultados'));
+  // 6 tabla
+  pages.push(P(T.bg, [...foot(6), ...head('Comparación', 'Es el único que combina costo bajo y lectura en menos de dos minutos'),
+    mk('table', { x: M, y: 360, w: W - M * 2, h: 420, rows: 5, cols: 4, size: 28, style: 'booktabs', font: T.body, color: ink, lineColor: T.line, cells: [['Opción', 'Error medio', 'Costo (USD)', 'Tiempo (min)'], ['Método A: espectrofotómetro', '8,2 %', '3.900', '15'], ['Método B: tira enzimática', '5,1 %', '25', '1,5'], ['Método C: electroquímico', '3,4 %', '180', '3'], ['Prototipo', '2,1 %', '18', '1,8']] }),
+    src('Fuente: fichas técnicas de los fabricantes y mediciones propias. Datos de ejemplo.')], 'Comparación'));
+  // 7 arquitectura: jerarquía
+  pages.push(P(T.bg, [...foot(7), ...head('Diseño', 'El sistema se divide en tres bloques que se pueden probar por separado'),
+    ...V('hierarchy', [{ title: 'Óptica', children: ['LED a 940 nm', 'Fotodiodo', 'Cámara de muestra'] }, { title: 'Electrónica', children: ['Amplificador de transimpedancia', 'Conversor de 16 bits', 'Microcontrolador'] }, { title: 'Software', children: ['Filtro de media móvil', 'Recta de calibración', 'Pantalla de resultados'] }], M, 380, W - M * 2, 540, { title: 'Sensor de glucosa' })], 'Diseño'));
+  // 8 discusión: comparación
+  pages.push(P(T.bg, [...foot(8), ...head('Discusión', 'La luz ambiente es la principal limitación y tiene solución mecánica'),
+    ...V('compare', ['Lo que funcionó: Linealidad de 0,99 entre 70 y 400 mg/dL; Repetibilidad dentro de 3 %; Consumo de 12 mA', 'Lo que falló: Deriva por luz ambiente; Variación con la temperatura; Muestras por debajo de 1 µL'], M, 400, W - M * 2, 500)], 'Discusión'));
+  // 9 conclusiones
+  pages.push(P(T.bg, [...foot(9), kick('Conclusiones'),
+    ...V('list', ['El prototipo cumple el objetivo: 2,1 % de error frente a la meta de 5 %.', 'Los materiales cuestan 18 dólares, una fracción de lo que vale un equipo de laboratorio.', 'Falta validar con muestras clínicas y blindar la cámara de la luz externa.'], M, 180, W - M * 2, 720, { size: 36 })], 'Conclusiones'));
+  // 10 referencias
+  pages.push(P(T.bg, [...foot(10), kick('Referencias'),
+    vtx(M, 180, 840, '[1] N. Apellido, «Título del artículo», Nombre de la revista, vol. 12, n.º 3, pp. 100–110, 2022.\n\n[2] N. Apellido y N. Apellido, Título del libro, 2.ª ed. Ciudad: Editorial, 2020.\n\n[3] Organización Mundial de la Salud, «Título del informe», Ginebra, 2023.', { font: T.body, size: 24, color: ink, lineHeight: 1.45 }),
+    vtx(1000, 180, 800, '[4] N. Apellido, «Título de la norma», ISO 15197, 2013.\n\n[5] N. Apellido, «Título de la tesis», Tesis de maestría, Universidad, 2021.', { font: T.body, size: 24, color: ink, lineHeight: 1.45 })], 'Referencias'));
+  // 11 cierre
+  pages.push(P(T.bg, [vln(M, 150, 700, 150, T.accent, 4), vtx(M, 360, 1300, 'Preguntas', { font: T.head, size: 120, weight: 700, color: ink }), vtx(M, 540, 1200, 'Nombre Apellido · correo@universidad.edu', { font: T.body, size: 34, color: sub })], 'Cierre'));
+  return pages;
+}
+[['formal-inst', 'Formal institucional', 'institucional'], ['formal-tinta', 'Formal tinta y vino', 'tinta'], ['formal-pizarra', 'Formal pizarra (oscura)', 'pizarra']].forEach(([id, name, key]) => {
+  const t = VTHEMES[key];
+  TEMPLATES.push({ id, name, cat: 'Presentaciones', w: 1920, h: 1080, pal: [t.bg, t.accent, t.accent2, t.line, t.ink], pages: () => formalDeck(key) });
+});
 
 </script>
 </body>

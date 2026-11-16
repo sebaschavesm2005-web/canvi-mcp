@@ -6,7 +6,7 @@
       "name": "canvi",
       "source": "./",
       "description": "Design editor that Claude can drive: create, edit and export designs, and open them in a visual editor.",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   ]
 }

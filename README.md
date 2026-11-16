@@ -49,11 +49,17 @@ On Windows write the path with double backslashes, for example `C:\\Users\\you\\
 | `create_design` | New design from pages and elements, a preset size or a template; returns a preview |
 | `read_design` | Outline of a design (ids, positions, texts) plus a preview, including your manual changes |
 | `edit_design` | Replace text, move or restyle elements, add or delete elements and pages, resize the canvas |
+| `add_visual` | Napkin-style: turns a list of ideas into an editable diagram (process, list, cards, compare, timeline, cycle, hierarchy, pyramid, funnel, 2x2 matrix, key figures, Venn) in one of five sober themes |
+| `audit_design` | Reviews a design: small text, too many words, overlaps, low contrast, placeholder text, titles that are labels, missing sources, repeated layouts, gradients, decorative bars, stock phrases. Returns a score and the findings |
 | `export_design` | PNG, JPEG or PDF (each PDF page has exactly the canvas size) |
 | `open_editor` | Opens the design in the visual editor in your browser |
 | `list_designs`, `duplicate_design`, `delete_design` | Housekeeping (delete moves to a trash folder) |
 
-Elements: shapes (16 kinds), text with effects, lines, images, icons, tables, charts (column, bar, line, pie, donut) and free drawing. Text height is automatic and reported back, so Claude can detect overlaps.
+Elements: shapes (16 kinds), text with effects, lines, images (an https URL, a data URL or the path of a local file), icons, tables, charts and free drawing. Text height is automatic and reported back, so Claude can detect overlaps.
+
+Tables wrap long text, size their columns to the content (or to `colW`), right-align numeric columns and come in three styles: `grid`, `clean` and `booktabs`. Charts (column, bar, line, area, pie, donut) round their axes, print numbers with the locale's decimal separator, can `highlight` one mark while the rest turn gray, and show a label inside a donut.
+
+The editor has a Visuals tab (type one idea per line, pick one of the suggested diagrams) and a design review, and the template gallery includes three formal 11-slide decks (`formal-inst`, `formal-tinta`, `formal-pizarra`). The plugin ships the `canvi-presentaciones` skill, a method for formal decks that do not look machine-made.
 
 ## Where things live
 

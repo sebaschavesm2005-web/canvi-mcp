@@ -18,7 +18,7 @@ import crypto from 'node:crypto';
 import { spawn, execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const EDITOR_FILE = path.join(HERE, 'editor', 'canvi.html');
 const ROOT = process.env.CANVI_DIR || path.join(os.homedir(), 'Canvi');
@@ -58,10 +58,24 @@ async function listDesigns() {
 
 /* ------------------------------------------------------------- doc helpers */
 const uid = () => crypto.randomBytes(4).toString('hex');
+const IMG_MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml' };
+/** A local path (absolute, relative to the working folder, or file://) becomes a data URL so the design file is self-contained. */
+function localImageToData(src) {
+  let f = src;
+  if (/^file:/i.test(f)) { try { f = fileURLToPath(f); } catch { /* keep as is */ } }
+  f = path.resolve(f);
+  const mime = IMG_MIME[path.extname(f).toLowerCase()];
+  if (!fs.existsSync(f)) throw new Error(`Image file not found: ${f}. Use an https URL, a data: URL or the full path of a png/jpg/webp/gif/svg file.`);
+  if (!mime) throw new Error(`Unsupported image type for ${f}. Use png, jpg, webp, gif or svg.`);
+  const buf = fs.readFileSync(f);
+  if (buf.length > 12 * 1024 * 1024) throw new Error(`Image ${f} is larger than 12 MB; shrink it first.`);
+  return `data:${mime};base64,${buf.toString('base64')}`;
+}
 function normalizeElement(el, taken) {
   if (!el || typeof el !== 'object' || !el.type) throw new Error('Every element needs a "type" (shape, text, line, image, graphic, draw, table, chart).');
   const o = { x: 0, y: 0, w: 200, h: 100, rot: 0, opacity: 1, locked: false, hidden: false, gid: '', ...el };
   if (!o.id || taken.has(o.id)) o.id = uid();
+  if (o.type === 'image' && typeof o.src === 'string' && o.src && !/^(https?:|data:)/i.test(o.src)) o.src = localImageToData(o.src);
   taken.add(o.id); return o;
 }
 function normalizeDoc(d) {
@@ -326,9 +340,9 @@ const TOOLS = [
     inputSchema: { type: 'object', properties: {} },
     async run() {
       const t = await getRenderer();
-      const s = await serialized(() => evalIn(t.sessionId, `({ defaults: DEFAULTS, presets: PRESETS, fonts: FONTS, shapes: SHAPES.map(s => s[0]), icons: GRAPHICS.map(g => g[0]), textEffects: FX_KINDS.map(f => f[0]), templates: TEMPLATES.map(t => ({ id: t.id, name: t.name, category: t.cat, width: t.w, height: t.h })) })`));
+      const s = await serialized(() => evalIn(t.sessionId, `({ defaults: DEFAULTS, presets: PRESETS, fonts: FONTS, shapes: SHAPES.map(s => s[0]), icons: GRAPHICS.map(g => g[0]), textEffects: FX_KINDS.map(f => f[0]), templates: TEMPLATES.map(t => ({ id: t.id, name: t.name, category: t.cat, width: t.w, height: t.h })), visuals: Object.fromEntries(Object.entries(VISUAL_KINDS).map(([k, v]) => [k, { name: v.name, items: v.min + '-' + v.max, use: v.hint }])), visualThemes: Object.fromEntries(Object.entries(VTHEMES).map(([k, v]) => [k, { name: v.name, headFont: v.head, bodyFont: v.body, accent: v.accent, accent2: v.accent2, background: v.bg, ink: v.ink }])) })`));
       return [text(`Design = {name, w, h, palette:[hex...], pages:[{bg, title?, elements:[...]}]}. Elements are drawn in array order (last = on top). Common element props: id (optional, give readable ids like "title" so you can edit them later), type, x, y, w, h, rot (degrees), opacity (0-1), locked, hidden.
-Types: shape (rect, rrect, ellipse, triangle, diamond, pentagon, hexagon, star, heart, arrowblock, plus, parallelogram, semicircle, bubble, arch, blob; "fill" and "color" accept a hex string or a gradient object; optional "text" inside the shape), text (text, font, size, weight, italic, align, color, lineHeight, letterSpacing, fx, fill = background box, h is ignored), line, image (src = https URL or data: URL), graphic (icon: one of the icon names, fill), table (rows, cols, cells[row][col]), chart (kind: column|bar|line|pie|donut, data:[{label,value}], colors, title), draw (free hand). Fonts are Google Fonts loaded from the internet. Use the defaults below for the full property list of each type.`),
+Types: shape (rect, rrect, ellipse, triangle, diamond, pentagon, hexagon, star, heart, arrowblock, plus, parallelogram, semicircle, bubble, arch, blob; "fill" and "color" accept a hex string or a gradient object; optional "text" inside the shape), text (text, font, size, weight, italic, align, color, lineHeight, letterSpacing, fx, fill = background box, h is ignored), line, image (src = https URL, data: URL or the path of a local png/jpg/webp/gif/svg file, which is embedded), graphic (icon: one of the icon names, fill), table (rows, cols, cells[row][col]; style: grid|clean|booktabs, colW:[relative widths], align:[left|right|center per column], long cell text wraps and numeric columns right-align), chart (kind: column|bar|line|area|pie|donut, data:[{label,value}], colors, title, highlight: label or index of the one mark to emphasise while the others turn gray, decimals, unit such as ' %', locale default 'es' so 7.3 prints as 7,3, centerText/centerSub inside a donut), draw (free hand). For schemes, processes, comparisons and timelines do not draw boxes by hand: call add_visual, which lays out ready-made editable diagrams (see the visuals and visualThemes below). Before delivering a deck call audit_design. Fonts are Google Fonts loaded from the internet. Use the defaults below for the full property list of each type.`),
         json(s)];
     },
   },
@@ -400,6 +414,45 @@ Types: shape (rect, rrect, ellipse, triangle, diamond, pentagon, hexagon, star, 
       const out = [text(`Exported ${files.length} file(s):\n${files.join('\n')}`)];
       if (fmt !== 'pdf') { const pr = await previewOf(doc, 0); out.push(image(pr)); }
       return out;
+    },
+  },
+  {
+    name: 'add_visual',
+    description: 'Napkin-style: turn a list of ideas into a laid-out, editable diagram on a page. kinds: process (steps in sequence), list (numbered detail), cards, compare (exactly 2 items, text split with ";" becomes bullets), timeline (titles are dates), cycle, hierarchy (title = root; items may carry children:[...]), pyramid, funnel, matrix (exactly 4 items, optional xLabel/yLabel), stats (items {value, title, text}), venn (2-3 items, optional center). Items are strings "Title: detail" or objects {title, text, value, children}. Omit kind to let Canvi pick the best one for the items. Position it with x, y, w, h (pixels; defaults fill the lower 60% of the page). theme: a name from get_schema visualThemes, "auto" (default, copies the palette and fonts of the page) or an object {bg, ink, sub, accent, accent2, line, card, head, body}. Elements are named <name>-1, <name>-2 ... and grouped, so later edit_design calls can restyle them. Returns a preview.',
+    inputSchema: { type: 'object', properties: {
+      id: { type: 'string', description: 'Design id.' }, page: { type: 'number', description: 'Page index (default 0).' },
+      kind: { type: 'string', enum: ['process', 'list', 'cards', 'compare', 'timeline', 'cycle', 'hierarchy', 'pyramid', 'funnel', 'matrix', 'stats', 'venn'] },
+      items: { type: 'array', items: {}, description: 'Ideas: strings "Title: detail" or objects.' },
+      x: { type: 'number' }, y: { type: 'number' }, w: { type: 'number' }, h: { type: 'number' }, size: { type: 'number', description: 'Base text size in px (default scales with the box).' },
+      theme: {}, title: { type: 'string', description: 'Root text for hierarchy.' }, xLabel: { type: 'string' }, yLabel: { type: 'string' }, center: { type: 'string' }, numbered: { type: 'boolean', description: 'list only: false hides the numbers.' },
+      name: { type: 'string', description: 'Prefix for the element ids (default: the kind).' } }, required: ['id', 'items'] },
+    async run(a) {
+      const { doc } = await readDesign(a.id);
+      const pi = a.page || 0; if (!doc.pages[pi]) throw new Error(`The design has no page ${pi}.`);
+      const spec = { ...a }; delete spec.id; delete spec.page; delete spec.name;
+      const slim = { name: doc.name, w: doc.w, h: doc.h, palette: doc.palette || [], pages: doc.pages.map((pg, i) => ({ bg: pg.bg, elements: i === pi ? pg.elements.filter(e => e.type !== 'image') : [] })) };
+      const t = await getRenderer();
+      const built = await serialized(() => evalIn(t.sessionId, `(async () => { const d = ${JSON.stringify(slim)}; migrate(d); doc = d; pageIdx = ${pi}; sel = []; const spec = ${JSON.stringify(spec)}; const T = vTheme(spec.theme); await Promise.all([T.head, T.body].flatMap(f => [400, 600, 700].map(w => document.fonts.load(w + ' 24px "' + f + '"')))).catch(() => {}); await document.fonts.ready; const r = buildVisual(spec); return { kind: r.kind, elements: r.elements, box: r.box }; })()`));
+      let prefix = String(a.name || built.kind).replace(/[^a-z0-9-]/gi, '') || 'visual';
+      const used = allElements(doc).map(x => x.el.id); if (used.some(id => id.startsWith(prefix + '-'))) { let n = 2; while (used.some(id => id.startsWith(prefix + '-' + n + '-'))) n++; prefix = prefix + '-' + n; }
+      built.elements.forEach((e, i) => { e.id = `${prefix}-${i + 1}`; });
+      const notes = applyOps(doc, built.elements.map(element => ({ op: 'add_element', page: pi, element })));
+      const next = normalizeDoc(doc), url = await previewOf(next, pi);
+      await writeDesign(a.id, next);
+      return [text(`Added "${built.kind}" (${built.elements.length} elements named ${prefix}-1 ... ${prefix}-${built.elements.length}, grouped) on page ${pi}, box x=${Math.round(built.box.x)} y=${Math.round(built.box.y)} w=${Math.round(built.box.w)} h=${Math.round(built.box.h)}.\nSaved. editor: ${editorUrl(a.id)}`), image(url)];
+    },
+  },
+  {
+    name: 'audit_design',
+    description: 'Review a design before delivering it. Reports, by page: text too small for the canvas, too many words, text overlaps or leaving the canvas, low contrast, leftover placeholder text and empty photo frames, titles that are labels instead of conclusions, charts or tables without a source line, and the traces that make a deck look machine-made (the same layout on consecutive pages, equal cards in a row, gradients, decorative accent bars, more than 3 colour families, em dashes, emojis, "not X but Y" phrasing, stock phrases). Returns a score and the findings; fix errors and warnings with edit_design or add_visual and run it again. formal=false skips the style rules.',
+    inputSchema: { type: 'object', properties: { id: { type: 'string' }, formal: { type: 'boolean', description: 'Default true: also apply the sober, human-looking style rules.' } }, required: ['id'] },
+    async run(a) {
+      const { doc } = await readDesign(a.id);
+      const t = await getRenderer();
+      const r = await serialized(() => evalIn(t.sessionId, `(async () => { const d = ${JSON.stringify(doc)}; migrate(d); const fs_ = new Set(); d.pages.forEach(pg => pg.elements.forEach(el => { if (el.font) fs_.add(el.font); })); await Promise.all([...fs_].flatMap(f => [400, 600, 700].map(w => document.fonts.load(w + ' 24px "' + f + '"')))).catch(() => {}); await document.fonts.ready; return auditDesign(d, { formal: ${a.formal === false ? 'false' : 'true'} }); })()`));
+      const order = { error: 0, warn: 1, info: 2 };
+      const lines = r.findings.slice().sort((x, y) => x.page - y.page || order[x.severity] - order[y.severity]).slice(0, 80).map(f => `p${f.page + 1} ${f.severity.toUpperCase()} ${f.rule}${f.id ? ' [' + f.id + ']' : ''}: ${f.message}`);
+      return [text(`Score ${r.score}/100: ${r.errors} errors, ${r.warnings} warnings, ${r.infos} suggestions.\n${lines.length ? lines.join('\n') : 'Nothing to fix.'}${r.findings.length > 80 ? `\n(+${r.findings.length - 80} more)` : ''}`)];
     },
   },
   {
